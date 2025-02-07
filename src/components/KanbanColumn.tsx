@@ -24,21 +24,30 @@ function KanbanColumn({ title, cards = [] }: KanbanColumnProps) {
         justifyContent={"space-between"}
       >
         <Box display={"flex"}>
-          <Heading size={"md"} color={"black"}>
+          <Heading size={"md"} color={"black"} fontWeight={"bold"}>
             {title}
           </Heading>
-          <Text bg={"gray.100"} px={2} borderRadius={"md"} color={"black"}>
+          <Text
+            bg={"gray.100"}
+            px={2}
+            borderRadius={"md"}
+            color={"black"}
+            fontWeight={"bold"}
+          >
             {cards.length}
           </Text>
         </Box>
-        if(
         {cards.length !== 0 && (
-          // 이거 왜케 크냐;;;
-          <Button color={"black"} bgColor={"#F1F1F1"} borderRadius={20}>
+          <Button
+            color={"black"}
+            bgColor={"#F1F1F1"}
+            borderRadius={20}
+            size={"sm"}
+            padding={1}
+          >
             <IoMdAdd />
           </Button>
         )}
-        )
       </Box>
       <KanbanCard cards={cards} />
     </Box>
