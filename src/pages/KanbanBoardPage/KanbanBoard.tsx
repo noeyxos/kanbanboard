@@ -1,60 +1,44 @@
 import { Box, HStack } from "@chakra-ui/react";
 import KanbanColumn from "../../components/KanbanColumn";
 
-import { useState } from "react";
 import ProjectTitle from "../../components/ProjectTitle";
 import AddColumn from "../../components/AddColumn";
-
-interface Column {
-  id: string;
-  title: string;
-}
+import { useColumnStore } from "../../store/ColumnStore";
 
 interface Card {
   id: number;
-  columnId: string;
+  columnId: number;
   tag: string;
   description: string;
 }
 
 function KanbanBoard() {
-  const [columns, setColumns] = useState<Column[]>([
-    { id: "backlog", title: "시작 전" },
-    { id: "inProgress", title: "진행 중" },
-    { id: "completed", title: "완료" },
-  ]);
+  const { columns, addColumn, deleteColumn } = useColumnStore();
+
   const cards: Card[] = [
     {
       id: 1,
-      columnId: "inProgress",
+      columnId: 2,
       tag: "관리자페이지",
       description: "회원을 블랙리스트로 지정할 수 있는 기능을 제작합니다.",
     },
     {
       id: 2,
-      columnId: "completed",
+      columnId: 3,
       tag: "사용자화면",
       description:
         "장바구니에 상품을 추가하고 수정, 삭제하는 기능이 포함된 컴포넌트를 제작합니다.",
     },
     {
       id: 3,
-      columnId: "completed",
+      columnId: 3,
       tag: "문서화",
       description: "디자인시스템 2.1 버전로그를 작성합니다.",
     },
   ];
 
-  const getCardsForColumn = (columnId: string) => {
+  const getCardsForColumn = (columnId: number) => {
     return cards.filter((card) => card.columnId === columnId);
-  };
-
-  const handleAddColumn = (columnName: string) => {
-    const newColumn: Column = {
-      id: `column-${columns.length + 1}`,
-      title: columnName.trim(),
-    };
-    setColumns([...columns, newColumn]);
   };
 
   return (
@@ -70,12 +54,15 @@ function KanbanBoard() {
         {columns.map((column) => (
           <Box key={column.id} width="201px">
             <KanbanColumn
+              id={column.id}
               title={column.title}
               cards={getCardsForColumn(column.id)}
+              isDeletable={column.isDeletable}
+              onDeleteColumn={deleteColumn}
             />
           </Box>
         ))}
-        <AddColumn onAddColumn={handleAddColumn} />
+        <AddColumn onAddColumn={addColumn} />
       </HStack>
     </Box>
   );
