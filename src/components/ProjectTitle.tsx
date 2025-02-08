@@ -1,9 +1,9 @@
 import { Box, Flex, Heading, Input } from "@chakra-ui/react";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { IoIosRefresh } from "react-icons/io";
 import { MdOutlineEdit } from "react-icons/md";
 import { useProjectStore } from "../store/projectStore";
 import { useState } from "react";
+import { LuArrowDownToLine } from "react-icons/lu";
+import { AiOutlineClose } from "react-icons/ai";
 
 function ProjectTitle() {
   const { projectTitle, setProjectTitle } = useProjectStore();
@@ -48,13 +48,13 @@ function ProjectTitle() {
             color="black"
             placeholder="프로젝트 제목을 입력하세요"
           />
-          <FaRegCheckCircle
+          <LuArrowDownToLine
             size={24}
             color="#3A3A3A"
             cursor="pointer"
             onClick={handleTitleSubmit}
           />
-          <IoIosRefresh
+          <AiOutlineClose
             size={24}
             color="#3A3A3A"
             cursor="pointer"

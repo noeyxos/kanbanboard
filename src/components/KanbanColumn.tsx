@@ -23,7 +23,7 @@ function KanbanColumn({ title, cards = [] }: KanbanColumnProps) {
         marginBottom={4}
         justifyContent={"space-between"}
       >
-        <Box display={"flex"}>
+        <Box display={"flex"} pb={3}>
           <Heading size={"md"} color={"black"} fontWeight={"bold"}>
             {title}
           </Heading>
