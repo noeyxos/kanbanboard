@@ -18,6 +18,10 @@ interface KanbanColumnProps {
   isDeletable: boolean;
   cards: Card[];
   onDeleteColumn: (columnId: number) => void;
+  onAddCard?: (
+    columnId: number,
+    cardData: { tag: string; description: string }
+  ) => void;
 }
 
 function KanbanColumn({
@@ -26,8 +30,10 @@ function KanbanColumn({
   isDeletable,
   cards = [],
   onDeleteColumn,
+  onAddCard,
 }: KanbanColumnProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAddingCard, setIsAddingCard] = useState(false);
 
   const truncateTitle = (text: string) => {
     if (text.length > 8) {
@@ -38,6 +44,13 @@ function KanbanColumn({
 
   const handleDeleteConfirm = () => {
     onDeleteColumn(id);
+  };
+
+  const handleAddCard = (cardData: { tag: string; description: string }) => {
+    if (onAddCard) {
+      onAddCard(columnId, cardData);
+      setIsAddingCard(false);
+    }
   };
 
   return (
@@ -94,12 +107,19 @@ function KanbanColumn({
             borderRadius={20}
             size={"sm"}
             padding={1}
+            onClick={() => setIsAddingCard(true)}
           >
             <IoMdAdd />
           </Button>
         )}
       </Box>
-      <KanbanCard cards={cards} />
+      <KanbanCard
+        cards={cards}
+        columnId={id}
+        onAddCard={handleAddCard}
+        isAdding={isAddingCard}
+        onCancelAdd={() => setIsAddingCard(false)}
+      />
     </Box>
   );
 }
