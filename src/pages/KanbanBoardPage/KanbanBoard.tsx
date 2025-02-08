@@ -1,16 +1,29 @@
-import { Box, Button, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import KanbanColumn from "../../components/KanbanColumn";
-import { IoMdAdd } from "react-icons/io";
+
+import { useState } from "react";
 import ProjectTitle from "../../components/ProjectTitle";
+import AddColumn from "../../components/AddColumn";
+
+interface Column {
+  id: string;
+  title: string;
+}
+
+interface Card {
+  id: number;
+  columnId: string;
+  tag: string;
+  description: string;
+}
 
 function KanbanBoard() {
-  const DefaultColumns = [
+  const [columns, setColumns] = useState<Column[]>([
     { id: "backlog", title: "시작 전" },
     { id: "inProgress", title: "진행 중" },
     { id: "completed", title: "완료" },
-  ];
-
-  const cards = [
+  ]);
+  const cards: Card[] = [
     {
       id: 1,
       columnId: "inProgress",
@@ -36,30 +49,33 @@ function KanbanBoard() {
     return cards.filter((card) => card.columnId === columnId);
   };
 
-  const handleAddColumn = () => {};
+  const handleAddColumn = (columnName: string) => {
+    const newColumn: Column = {
+      id: `column-${columns.length + 1}`,
+      title: columnName.trim(),
+    };
+    setColumns([...columns, newColumn]);
+  };
 
   return (
     <Box
-      position={"relative"}
+      position="relative"
       width="100%"
       paddingX={10}
       paddingY="8"
       bgColor={"#F8F8F8"}
     >
       <ProjectTitle />
-      <HStack alignItems={"flex-start"} spaceX={4}>
-        {DefaultColumns.map((column) => (
-          <Box key={column.id} width={"201px"}>
+      <HStack alignItems="flex-start" spaceX={4}>
+        {columns.map((column) => (
+          <Box key={column.id} width="201px">
             <KanbanColumn
               title={column.title}
               cards={getCardsForColumn(column.id)}
             />
           </Box>
         ))}
-        <Button width={"201px"} bgColor={"gray.200"} onClick={handleAddColumn}>
-          <IoMdAdd />
-          Add another list
-        </Button>
+        <AddColumn onAddColumn={handleAddColumn} />
       </HStack>
     </Box>
   );
