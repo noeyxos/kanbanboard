@@ -1,10 +1,12 @@
 import {
   Box,
+  Button,
   CardBody,
   CardDescription,
   CardRoot,
   Stack,
 } from "@chakra-ui/react";
+import { CiMenuKebab } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
 
 interface KanbanColumnProps {
@@ -13,7 +15,7 @@ interface KanbanColumnProps {
 
 interface Card {
   id: number;
-  columnId: string;
+  columnId: number;
   tag: string;
   description: string;
 }
@@ -43,15 +45,31 @@ const KanbanCard = ({ cards }: KanbanColumnProps) => {
         <CardRoot width="201px" variant={"elevated"}>
           <CardBody gap="2" alignItems={"start"}>
             <Box
-              display={"inline"}
-              fontSize={"sm"}
-              mb="2"
-              bgColor={"gray.200"}
-              px={2}
-              py={1}
-              borderRadius={"xl"}
+              width={"100%"}
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
             >
-              {card.tag}
+              <Box
+                display={"inline"}
+                fontSize={"sm"}
+                mb="2"
+                bgColor={"gray.200"}
+                px={2}
+                py={1}
+                borderRadius={"xl"}
+              >
+                {card.tag}
+              </Box>
+              <Button
+                color={"black"}
+                bgColor={"#F1F1F1"}
+                borderRadius={20}
+                size={"sm"}
+                padding={1}
+              >
+                <CiMenuKebab />
+              </Button>
             </Box>
             <CardDescription>{card.description}</CardDescription>
           </CardBody>

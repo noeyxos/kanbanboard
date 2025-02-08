@@ -35,7 +35,7 @@ function AddColumn({ onAddColumn }: AddColumnProps) {
   };
   if (isEditing) {
     return (
-      <Box display={"flex"}>
+      <Box display={"flex"} color={"black"}>
         <Input
           value={newColumnName}
           onChange={(e) => setNewColumnName(e.target.value)}
