@@ -46,13 +46,6 @@ function KanbanColumn({
     onDeleteColumn(id);
   };
 
-  const handleAddCard = (cardData: { tag: string; description: string }) => {
-    if (onAddCard) {
-      onAddCard(columnId, cardData);
-      setIsAddingCard(false);
-    }
-  };
-
   return (
     <Box width={"100%"}>
       <Box
@@ -116,7 +109,7 @@ function KanbanColumn({
       <KanbanCard
         cards={cards}
         columnId={id}
-        onAddCard={handleAddCard}
+        onAddCard={onAddCard}
         isAdding={isAddingCard}
         onCancelAdd={() => setIsAddingCard(false)}
       />
