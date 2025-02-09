@@ -6,6 +6,7 @@ interface Card {
   columnId: number;
   tag: string;
   description: string;
+  color: string;
   order: number;
 }
 
@@ -13,11 +14,11 @@ interface CardState {
   cards: Card[];
   addCard: (
     columnId: number,
-    cardData: { tag: string; description: string }
+    cardData: { tag: string; description: string; color: string } // 색상 추가
   ) => void;
   editCard: (
     cardId: number,
-    cardData: { tag: string; description: string }
+    cardData: { tag: string; description: string; color: string } // 색상 추가
   ) => void;
   deleteCard: (cardId: number) => void;
   deleteColumnCards: (columnId: number) => void;
@@ -34,6 +35,7 @@ const DefaultCards: Card[] = [
     columnId: 2,
     tag: "관리자페이지",
     description: "회원을 블랙리스트로 지정할 수 있는 기능을 제작합니다.",
+    color: "#8977AD", // 기본 색상 설정
     order: 0,
   },
   {
@@ -42,6 +44,7 @@ const DefaultCards: Card[] = [
     tag: "사용자화면",
     description:
       "장바구니에 상품을 추가하고 수정, 삭제하는 기능이 포함된 컴포넌트를 제작합니다.",
+    color: "#99ff99", // 기본 색상 설정
     order: 0,
   },
   {
@@ -49,6 +52,7 @@ const DefaultCards: Card[] = [
     columnId: 3,
     tag: "문서화",
     description: "디자인시스템 2.1 버전로그를 작성합니다.",
+    color: "#9999ff", // 기본 색상 설정
     order: 1,
   },
 ];
@@ -60,6 +64,7 @@ export const useCardStore = create(
 
       addCard: (columnId, cardData) =>
         set((state) => {
+          console.log("Adding card with color : ", cardData.color);
           const columnCards = state.cards.filter(
             (card) => card.columnId === columnId
           );
@@ -72,7 +77,7 @@ export const useCardStore = create(
                 id: Date.now(),
                 columnId,
                 order: newOrder,
-                ...cardData,
+                ...cardData, // tagColor 추가
               },
             ],
           };
@@ -180,7 +185,7 @@ export const useCardStore = create(
         }),
     }),
     {
-      name: "card-storage",
+      name: "card-storage", // localStorage 저장 이름
     }
   )
 );

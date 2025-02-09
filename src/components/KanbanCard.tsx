@@ -20,6 +20,7 @@ interface Card {
   tag: string;
   description: string;
   order: number;
+  color: string;
 }
 
 interface KanbanCardProps {
@@ -28,11 +29,11 @@ interface KanbanCardProps {
   isAdding?: boolean;
   onAddCard?: (
     columnId: number,
-    cardData: { tag: string; description: string }
+    cardData: { tag: string; description: string; color: string }
   ) => void;
   onEditCard?: (
     cardId: number,
-    cardData: { tag: string; description: string }
+    cardData: { tag: string; description: string; color: string }
   ) => void;
   onDeleteCard?: (cardId: number) => void;
   onCancelAdd?: () => void;
@@ -56,7 +57,11 @@ const KanbanCard = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleAddCard = (cardData: { tag: string; description: string }) => {
+  const handleAddCard = (cardData: {
+    tag: string;
+    description: string;
+    color: string;
+  }) => {
     onAddCard?.(columnId, cardData);
     onCancelAdd?.();
   };
@@ -106,6 +111,7 @@ const KanbanCard = ({
       whileTap={{ scale: 0.98 }}
     >
       <CardRoot
+        width="100%"
         variant="elevated"
         draggable
         onDragStart={(e) => onDragStart?.(e, card.id, columnId)}
@@ -127,24 +133,26 @@ const KanbanCard = ({
               display="inline"
               fontSize="sm"
               mb="2"
-              bgColor="gray.200"
+              bgColor={card.color ? `${card.color}33` : "gray.200"}
+              color={card.color || "black"}
               px={2}
               py={1}
-              borderRadius="xl"
+              borderRadius="4px"
+              fontWeight="bold"
             >
               {card.tag}
             </Box>
-            <Button
-              color="black"
-              bgColor="#F1F1F1"
-              borderRadius={20}
-              size="sm"
-              padding={1}
+                <Button
+                  color="black"
+                  bgColor="#F1F1F1"
+                  borderRadius={20}
+                  size="sm"
+                  padding={1}
               onClick={() => setIsOpen(!isOpen)}
               onTouchStart={() => setIsOpen(!isOpen)}
-            >
-              <CiMenuKebab />
-            </Button>
+                >
+                  <CiMenuKebab />
+                </Button>
           </Box>
           <Box>
             <SpringModal p="" isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -159,9 +167,9 @@ const KanbanCard = ({
                     수정
                   </Button>
                   <Button
-                    value="delete"
-                    color="fg.error"
-                    _hover={{ bg: "bg.error", color: "fg.error" }}
+                  value="delete"
+                  color="fg.error"
+                  _hover={{ bg: "bg.error", color: "fg.error" }}
                     onClick={handleDeleteClick}
                     onTouchStart={handleDeleteClick}
                   >
