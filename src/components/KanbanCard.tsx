@@ -121,6 +121,7 @@ const KanbanCard = ({
             display="flex"
             justifyContent="space-between"
             alignItems="center"
+            position={"relative"}
           >
             <Box
               display="inline"
@@ -145,7 +146,7 @@ const KanbanCard = ({
                   <CiMenuKebab />
                 </Button>
               </MenuTrigger>
-              <MenuContent minW="120px" zIndex={1000} position="fixed">
+              <MenuContent minW="100%" zIndex={3000} position="absolute">
                 <MenuItem value="edit" onClick={handleEditClick}>
                   Edit
                 </MenuItem>
