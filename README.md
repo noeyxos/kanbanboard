@@ -1,50 +1,12 @@
-# React + TypeScript + Vite
+# KanbanBoard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 소개
 
-Currently, two official plugins are available:
+React로 만든 간단한 KanbanBoard 입니다. 사용자는 '시작 전', '진행 중', '완료' 등의 컬럼을 선택하여 작업을 관리할 수 있습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 주요기능
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- 컬럼 내에서 작업(카드)를 생성, 수정, 삭제할 수 있습니다.
+- 컬럼 간 드래그 앤 드롭 기능을 지원합니다.
+- 데스크탑 화면에 최적화된 반응형 디자인입니다.
+- 상태를 로컬 스토리지에 저장하여 페이지 새로고침 후에도 유지됩니다.
