@@ -13,6 +13,7 @@ interface Card {
   tag: string;
   description: string;
   order: number;
+  color: string;
 }
 
 interface KanbanColumnProps {
@@ -23,11 +24,11 @@ interface KanbanColumnProps {
   onDeleteColumn: (columnId: number) => void;
   onAddCard?: (
     columnId: number,
-    cardData: { tag: string; description: string }
+    cardData: { tag: string; description: string; color: string }
   ) => void;
   onEditCard?: (
     cardId: number,
-    cardData: { tag: string; description: string }
+    cardData: { tag: string; description: string; color: string }
   ) => void;
   onDeleteCard?: (cardId: number) => void;
   onDragStart: (cardId: number) => void;
@@ -105,7 +106,7 @@ function KanbanColumn({
             {cards.length}
           </Text>
         </Box>
-        <Box display={"flex"}>
+        <Box display={"flex"} position={"relative"}>
           {isDeletable && (
             <Box>
               <Button

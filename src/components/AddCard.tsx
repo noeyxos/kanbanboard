@@ -23,7 +23,7 @@ function AddCard({ onAddCard }: AddCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tag, setTag] = useState("");
   const [description, setDescription] = useState("");
-  const [tagColor, setTagColor] = useState("#ffffff"); // 기본 색상을 흰색으로 설정
+  const [tagColor, setTagColor] = useState("#ffffff");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ function AddCard({ onAddCard }: AddCardProps) {
       onAddCard({ tag, description, color: tagColor });
       setTag("");
       setDescription("");
-      setTagColor("#ffffff"); // 제출 후 초기화
+      setTagColor("#ffffff");
       setIsEditing(false);
     }
   };
@@ -40,7 +40,7 @@ function AddCard({ onAddCard }: AddCardProps) {
     setIsEditing(false);
     setTag("");
     setDescription("");
-    setTagColor("#ffffff"); // 초기화
+    setTagColor("#ffffff");
   };
 
   if (!isEditing) {
@@ -49,7 +49,6 @@ function AddCard({ onAddCard }: AddCardProps) {
         variant="outline"
         cursor="pointer"
         onClick={() => setIsEditing(true)}
-        onTouchStart={() => setIsEditing(true)}
       >
         <CardBody gap="2" alignItems="center">
           <CardDescription color="gray.500">
@@ -76,13 +75,11 @@ function AddCard({ onAddCard }: AddCardProps) {
               autoFocus
             />
             <Input
-              placeholder="할일 입력"
+              placeholder="설명 입력"
               size="sm"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-
-            {/* 기본 HTML select 태그 사용하여 색상 선택 */}
             <select
               value={tagColor}
               onChange={(e) => setTagColor(e.target.value)}
@@ -100,23 +97,28 @@ function AddCard({ onAddCard }: AddCardProps) {
               <option value="#7C0491">보라</option>
             </select>
 
-            <HStack justifyContent="flex-end" spaceX={2} width={"100%"}>
+            <HStack justifyContent="flex-end" spaceX={2}>
               <Button
                 size="sm"
                 bgColor="gray.100"
                 variant="ghost"
                 onClick={handleCancel}
-                flex={1}
               >
                 취소
               </Button>
               <Button
                 size="sm"
-                bgColor={tagColor} // 선택한 색상 적용
+                bgColor={
+                  tagColor === "#ffffff" ? "gray.100" : tagColor || "gray.100"
+                }
                 type="submit"
-                onClick={handleSubmit}
-                onTouchStart={handleSubmit}
-                flex={1}
+                variant="ghost"
+                style={{
+                  color:
+                    tagColor === "#F5F5F5" || tagColor === "#ffffff"
+                      ? "black"
+                      : "white",
+                }}
               >
                 추가
               </Button>

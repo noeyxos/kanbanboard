@@ -142,21 +142,21 @@ const KanbanCard = ({
             >
               {card.tag}
             </Box>
-                <Button
-                  color="black"
-                  bgColor="#F1F1F1"
-                  borderRadius={20}
-                  size="sm"
-                  padding={1}
+            <Button
+              color="black"
+              bgColor="#F1F1F1"
+              borderRadius={20}
+              size="sm"
+              padding={1}
               onClick={() => setIsOpen(!isOpen)}
               onTouchStart={() => setIsOpen(!isOpen)}
-                >
-                  <CiMenuKebab />
-                </Button>
+            >
+              <CiMenuKebab />
+            </Button>
           </Box>
           <Box>
             <SpringModal p="" isOpen={isOpen} setIsOpen={setIsOpen}>
-              <Box minW="100%" zIndex={3000}>
+              <Box minW="100%" zIndex={3000} bg={"#FFFFFF"}>
                 <Heading>카드를 수정 또는 삭제하시겠습니까?</Heading>
                 <HStack>
                   <Button
@@ -167,9 +167,9 @@ const KanbanCard = ({
                     수정
                   </Button>
                   <Button
-                  value="delete"
-                  color="fg.error"
-                  _hover={{ bg: "bg.error", color: "fg.error" }}
+                    value="delete"
+                    color="fg.error"
+                    _hover={{ bg: "bg.error", color: "fg.error" }}
                     onClick={handleDeleteClick}
                     onTouchStart={handleDeleteClick}
                   >

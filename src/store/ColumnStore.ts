@@ -15,7 +15,6 @@ interface ColumnState {
   deleteColumn: (ColumnId: number) => void;
 }
 
-// 삭제하면 안되는 기본 컬럼들
 const DefaultColumns: Column[] = [
   { id: 1, type: "backlog", title: "시작 전", isDeletable: false },
   { id: 2, type: "inProgress", title: "진행 중", isDeletable: false },

@@ -31,10 +31,14 @@ function DeleteColumn({
   };
 
   return (
-    <PopoverRoot open={isOpen} positioning={{ placement: "top-end" }}>
+    <PopoverRoot open={isOpen}>
       <PopoverContent
         style={{
           position: "absolute",
+          top: "100%",
+          right: "50%",
+          transform: "translate(50%, 8px)",
+          width: "max-content",
           zIndex: 1000,
         }}
       >
