@@ -42,6 +42,7 @@ function AddCard({ onAddCard }: AddCardProps) {
         variant="outline"
         cursor="pointer"
         onClick={() => setIsEditing(true)}
+        onTouchStart={() => setIsEditing(true)}
       >
         <CardBody gap="2" alignItems="center">
           <CardDescription color="gray.500">
@@ -79,6 +80,7 @@ function AddCard({ onAddCard }: AddCardProps) {
                 bgColor="blue"
                 type="submit"
                 onClick={handleSubmit}
+                onTouchStart={handleSubmit}
                 flex={1}
               >
                 추가
