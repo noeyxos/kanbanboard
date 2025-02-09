@@ -4,12 +4,15 @@ import { IoMdAdd } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
 import DeleteColumn from "./DeleteColumn";
 import { useState } from "react";
+import { DroppableColumn } from "./DroppableColumn";
+import { AnimatePresence } from "framer-motion";
 
 interface Card {
   id: number;
   columnId: number;
   tag: string;
   description: string;
+  order: number;
 }
 
 interface KanbanColumnProps {
@@ -25,8 +28,12 @@ interface KanbanColumnProps {
   onEditCard?: (
     cardId: number,
     cardData: { tag: string; description: string }
-  ) => void; // 추가
+  ) => void;
   onDeleteCard?: (cardId: number) => void;
+  onDragStart: (cardId: number) => void;
+  onDragEnd: () => void;
+  onDragOver: (e: React.DragEvent) => void;
+  onDrop: (columnId: number, targetCardId?: number) => void;
 }
 
 function KanbanColumn({
@@ -38,9 +45,14 @@ function KanbanColumn({
   onAddCard,
   onEditCard,
   onDeleteCard,
+  onDragStart,
+  onDragEnd,
+  onDragOver,
+  onDrop,
 }: KanbanColumnProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
+  const [isDraggedOver, setIsDraggedOver] = useState(false);
 
   const truncateTitle = (text: string) => {
     if (text.length > 8) {
@@ -51,6 +63,18 @@ function KanbanColumn({
 
   const handleDeleteConfirm = () => {
     onDeleteColumn(id);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDraggedOver(true);
+    onDragOver(e);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDraggedOver(false);
+    onDrop(id);
   };
 
   return (
@@ -113,15 +137,38 @@ function KanbanColumn({
           </Button>
         )}
       </Box>
-      <KanbanCard
-        cards={cards}
-        columnId={id}
-        onAddCard={onAddCard}
-        isAdding={isAddingCard}
-        onCancelAdd={() => setIsAddingCard(false)}
-        onEditCard={onEditCard}
-        onDeleteCard={onDeleteCard}
-      />
+      <DroppableColumn
+        id={id}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        isDraggedOver={isDraggedOver}
+      >
+        <AnimatePresence>
+          {cards.map((card) => (
+            <KanbanCard
+              key={card.id}
+              card={card}
+              columnId={id}
+              onEditCard={onEditCard}
+              onDeleteCard={onDeleteCard}
+              onDragStart={(e) => {
+                e.stopPropagation();
+                onDragStart(card.id);
+              }}
+              onDragEnd={onDragEnd}
+              isDragging={false}
+            />
+          ))}
+          {isAddingCard && (
+            <KanbanCard
+              columnId={id}
+              isAdding
+              onAddCard={onAddCard}
+              onCancelAdd={() => setIsAddingCard(false)}
+            />
+          )}
+        </AnimatePresence>
+      </DroppableColumn>
     </Box>
   );
 }
