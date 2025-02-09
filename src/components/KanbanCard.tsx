@@ -134,8 +134,14 @@ const KanbanCard = ({
               display="inline"
               fontSize="sm"
               mb="2"
-              bgColor={card.color ? `${card.color}33` : "gray.200"}
-              color={card.color || "black"}
+              bgColor={
+                card.tag
+                  ? card.color
+                    ? `${card.color}33`
+                    : "gray.200"
+                  : "white"
+              }
+              color={card.tag ? card.color || "black" : "white"}
               px={2}
               py={1}
               borderRadius="4px"
@@ -164,10 +170,10 @@ const KanbanCard = ({
                 <HStack>
                   <Button
                     bgColor="gray.100"
-                    color={"black"}
                     value="edit"
                     onClick={handleEditClick}
                     onTouchStart={handleEditClick}
+                    color="black"
                   >
                     수정
                   </Button>
