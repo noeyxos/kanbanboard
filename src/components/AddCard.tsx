@@ -27,8 +27,9 @@ function AddCard({ onAddCard }: AddCardProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (tag.trim() && description.trim() && onAddCard) {
-      onAddCard({ tag, description, color: tagColor });
+    const finalTag = tag.trim();
+    if (description.trim() && onAddCard) {
+      onAddCard({ tag: finalTag, description, color: tagColor });
       setTag("");
       setDescription("");
       setTagColor("#ffffff");
