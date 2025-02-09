@@ -40,7 +40,7 @@ const KanbanCard = ({
   };
 
   // 카드가 없거나 isAdding이 true일 때 AddCard 컴포넌트 표시
-  if (cards.length === 0 || isAdding) {
+  if (cards.length === 0) {
     return <AddCard onAddCard={handleAddCard} />;
   }
 
