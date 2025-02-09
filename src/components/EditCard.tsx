@@ -29,7 +29,7 @@ const EditCard = ({ card, onSave, onCancel }: EditCardProps) => {
   };
 
   return (
-    <CardRoot width="201px" variant="elevated">
+    <CardRoot variant="elevated">
       <CardBody>
         <form onSubmit={handleSubmit}>
           <Stack>

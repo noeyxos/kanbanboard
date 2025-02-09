@@ -106,7 +106,6 @@ const KanbanCard = ({
       whileTap={{ scale: 0.98 }}
     >
       <CardRoot
-        width="201px"
         variant="elevated"
         draggable
         onDragStart={(e) => onDragStart?.(e, card.id, columnId)}

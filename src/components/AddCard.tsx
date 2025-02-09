@@ -39,7 +39,6 @@ function AddCard({ onAddCard }: AddCardProps) {
   if (!isEditing) {
     return (
       <CardRoot
-        width="201px"
         variant="outline"
         cursor="pointer"
         onClick={() => setIsEditing(true)}
@@ -57,7 +56,7 @@ function AddCard({ onAddCard }: AddCardProps) {
   }
 
   return (
-    <CardRoot width="201px" variant="outline">
+    <CardRoot variant="outline">
       <CardBody>
         <form onSubmit={handleSubmit}>
           <Stack>
