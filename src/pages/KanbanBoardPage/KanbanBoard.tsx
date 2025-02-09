@@ -4,15 +4,30 @@ import ProjectTitle from "../../components/ProjectTitle";
 import AddColumn from "../../components/AddColumn";
 import { useColumnStore } from "../../store/ColumnStore";
 import { useCardStore } from "../../store/CardStore";
+import { useState } from "react";
 
 function KanbanBoard() {
   const { columns, addColumn, deleteColumn } = useColumnStore();
-  const { cards, addCard, editCard, deleteCard, deleteColumnCards } =
-    useCardStore();
+  const { cards, addCard, editCard, deleteCard, moveCard } = useCardStore();
 
-  const handleDeleteColumn = (columnId: number) => {
-    deleteColumn(columnId);
-    deleteColumnCards(columnId);
+  const [draggedCardId, setDraggedCardId] = useState<number | null>(null);
+
+  const handleDragStart = (cardId: number) => {
+    setDraggedCardId(cardId);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedCardId(null);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (columnId: number, targetCardId?: number) => {
+    if (draggedCardId === null) return;
+    moveCard(draggedCardId, columnId, targetCardId);
+    setDraggedCardId(null);
   };
 
   return (
@@ -30,12 +45,18 @@ function KanbanBoard() {
             <KanbanColumn
               id={column.id}
               title={column.title}
-              cards={cards.filter((card) => card.columnId === column.id)}
+              cards={cards
+                .filter((card) => card.columnId === column.id)
+                .sort((a, b) => a.order - b.order)}
               isDeletable={column.isDeletable}
-              onDeleteColumn={handleDeleteColumn}
+              onDeleteColumn={deleteColumn}
               onAddCard={addCard}
               onEditCard={editCard}
               onDeleteCard={deleteCard}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
             />
           </Box>
         ))}
