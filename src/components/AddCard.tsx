@@ -48,8 +48,8 @@ function AddCard({ onAddCard }: AddCardProps) {
           <CardDescription color="gray.500">
             지금 바로 추가해보세요.
           </CardDescription>
-          <Box bgColor="#F1F1F1" borderRadius={20}>
-            <IoMdAdd size={20} />
+          <Box bgColor="#F1F1F1" borderRadius={10} padding={1}>
+            <IoMdAdd />
           </Box>
         </CardBody>
       </CardRoot>
@@ -74,22 +74,24 @@ function AddCard({ onAddCard }: AddCardProps) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            <HStack justifyContent="flex-end" spaceX={2}>
-              <Button
-                size="sm"
-                bgColor="gray.100"
-                variant="ghost"
-                onClick={handleCancel}
-              >
-                취소
-              </Button>
+            <HStack justifyContent="flex-end" spaceX={2} width={"100%"}>
               <Button
                 size="sm"
                 bgColor="blue"
                 type="submit"
                 onClick={handleSubmit}
+                flex={1}
               >
                 추가
+              </Button>
+              <Button
+                size="sm"
+                bgColor="gray.100"
+                variant="ghost"
+                onClick={handleCancel}
+                flex={1}
+              >
+                취소
               </Button>
             </HStack>
           </Stack>

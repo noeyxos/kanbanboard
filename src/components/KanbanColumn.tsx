@@ -1,11 +1,11 @@
 import { Box, Button, Heading, Text } from "@chakra-ui/react";
 import KanbanCard from "./KanbanCard";
 import { IoMdAdd } from "react-icons/io";
-import { AiOutlineClose } from "react-icons/ai";
 import DeleteColumn from "./DeleteColumn";
 import { useState } from "react";
 import { DroppableColumn } from "./DroppableColumn";
 import { AnimatePresence } from "framer-motion";
+import { IoTrashBin } from "react-icons/io5";
 
 interface Card {
   id: number;
@@ -105,37 +105,36 @@ function KanbanColumn({
             {cards.length}
           </Text>
         </Box>
-        {isDeletable && (
-          <Box>
-            <Button
-              color={"black"}
-              bgColor={"transparent"}
-              size={"sm"}
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <AiOutlineClose size={24} />
-            </Button>
-
-            <DeleteColumn
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              onDeleteConfirm={handleDeleteConfirm}
-              columnTitle={title}
-            />
-          </Box>
-        )}
-        {cards.length !== 0 && (
+        <Box display={"flex"}>
+          {isDeletable && (
+            <Box>
+              <Button
+                color={"black"}
+                bgColor={"transparent"}
+                size={"sm"}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <IoTrashBin />
+              </Button>
+              <DeleteColumn
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                onDeleteConfirm={handleDeleteConfirm}
+                columnTitle={title}
+              />
+            </Box>
+          )}
           <Button
             color={"black"}
             bgColor={"#F1F1F1"}
             borderRadius={20}
             size={"sm"}
-            padding={1}
+            padding={0}
             onClick={() => setIsAddingCard(true)}
           >
             <IoMdAdd />
           </Button>
-        )}
+        </Box>
       </Box>
       <DroppableColumn
         id={id}

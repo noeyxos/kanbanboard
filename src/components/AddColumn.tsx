@@ -35,7 +35,7 @@ function AddColumn({ onAddColumn }: AddColumnProps) {
   };
   if (isEditing) {
     return (
-      <Box display={"flex"} color={"black"}>
+      <Box display={"flex"} color={"black"} flexShrink={0}>
         <Input
           value={newColumnName}
           onChange={(e) => setNewColumnName(e.target.value)}
@@ -54,7 +54,12 @@ function AddColumn({ onAddColumn }: AddColumnProps) {
   }
 
   return (
-    <Button width="201px" bgColor="gray.200" onClick={() => setIsEditing(true)}>
+    <Button
+      flexShrink={0}
+      width="201px"
+      bgColor="gray.200"
+      onClick={() => setIsEditing(true)}
+    >
       <IoMdAdd />
       Add another list
     </Button>
