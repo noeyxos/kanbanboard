@@ -4,16 +4,15 @@ import {
   CardBody,
   CardDescription,
   CardRoot,
-  MenuRoot,
-  MenuItem,
-  MenuContent,
-  MenuTrigger,
+  HStack,
+  Heading,
 } from "@chakra-ui/react";
 import { CiMenuKebab } from "react-icons/ci";
 import AddCard from "./AddCard";
 import { useState } from "react";
 import EditCard from "./EditCard";
 import { motion } from "framer-motion";
+import SpringModal from "./SpringModal";
 
 interface Card {
   id: number;
@@ -55,6 +54,7 @@ const KanbanCard = ({
   isDragging,
 }: KanbanCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleAddCard = (cardData: { tag: string; description: string }) => {
     onAddCard?.(columnId, cardData);
@@ -65,7 +65,7 @@ const KanbanCard = ({
     setIsEditing(true);
   };
 
-  const handleDeleteCard = () => {
+  const handleDeleteClick = () => {
     if (card) {
       onDeleteCard?.(card.id);
     }
@@ -134,32 +134,42 @@ const KanbanCard = ({
             >
               {card.tag}
             </Box>
-            <MenuRoot>
-              <MenuTrigger bgColor="transparent" padding={0}>
-                <Button
-                  color="black"
-                  bgColor="#F1F1F1"
-                  borderRadius={20}
-                  size="sm"
-                  padding={1}
-                >
-                  <CiMenuKebab />
-                </Button>
-              </MenuTrigger>
-              <MenuContent minW="100%" zIndex={3000} position="absolute">
-                <MenuItem value="edit" onClick={handleEditClick}>
-                  Edit
-                </MenuItem>
-                <MenuItem
-                  value="delete"
-                  color="fg.error"
-                  _hover={{ bg: "bg.error", color: "fg.error" }}
-                  onClick={handleDeleteCard}
-                >
-                  Delete
-                </MenuItem>
-              </MenuContent>
-            </MenuRoot>
+            <Button
+              color="black"
+              bgColor="#F1F1F1"
+              borderRadius={20}
+              size="sm"
+              padding={1}
+              onClick={() => setIsOpen(!isOpen)}
+              onTouchStart={() => setIsOpen(!isOpen)}
+            >
+              <CiMenuKebab />
+            </Button>
+          </Box>
+          <Box>
+            <SpringModal p="" isOpen={isOpen} setIsOpen={setIsOpen}>
+              <Box minW="100%" zIndex={3000}>
+                <Heading>카드를 수정 또는 삭제하시겠습니까?</Heading>
+                <HStack>
+                  <Button
+                    value="edit"
+                    onClick={handleEditClick}
+                    onTouchStart={handleEditClick}
+                  >
+                    수정
+                  </Button>
+                  <Button
+                    value="delete"
+                    color="fg.error"
+                    _hover={{ bg: "bg.error", color: "fg.error" }}
+                    onClick={handleDeleteClick}
+                    onTouchStart={handleDeleteClick}
+                  >
+                    삭제
+                  </Button>
+                </HStack>
+              </Box>
+            </SpringModal>
           </Box>
           <CardDescription>{card.description}</CardDescription>
         </CardBody>

@@ -69,7 +69,7 @@ function AddCard({ onAddCard }: AddCardProps) {
               autoFocus
             />
             <Input
-              placeholder="설명 입력"
+              placeholder="할일 입력"
               size="sm"
               value={description}
               onChange={(e) => setDescription(e.target.value)}

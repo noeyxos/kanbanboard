@@ -7,10 +7,11 @@ interface DraggableCardProps {
   tag: string;
   description: string;
   onDragStart: (
-    e: React.DragEvent,
+    e: React.DragEvent | React.TouchEvent,
     cardId: number,
     sourceColumnId: number
   ) => void;
+  onDragMove: (e: React.TouchEvent) => void;
   onDragEnd: () => void;
   isDragging?: boolean;
 }
@@ -21,6 +22,7 @@ export function DraggableCard({
   tag,
   description,
   onDragStart,
+  onDragMove,
   onDragEnd,
   isDragging,
 }: DraggableCardProps) {
@@ -44,6 +46,8 @@ export function DraggableCard({
         draggable
         onDragStart={(e) => onDragStart(e, id, columnId)}
         onDragEnd={onDragEnd}
+        onTouchStart={onDragMove}
+        onTouchEnd={onDragEnd}
         cursor="grab"
         p={4}
         bg="white"

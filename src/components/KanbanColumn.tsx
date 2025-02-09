@@ -32,7 +32,7 @@ interface KanbanColumnProps {
   onDeleteCard?: (cardId: number) => void;
   onDragStart: (cardId: number) => void;
   onDragEnd: () => void;
-  onDragOver: (e: React.DragEvent) => void;
+  onDragOver: (e: React.DragEvent | React.TouchEvent) => void;
   onDrop: (columnId: number, targetCardId?: number) => void;
 }
 
@@ -65,13 +65,13 @@ function KanbanColumn({
     onDeleteColumn(id);
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e: React.DragEvent | React.TouchEvent) => {
     e.preventDefault();
     setIsDraggedOver(true);
     onDragOver(e);
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = (e: React.DragEvent | React.TouchEvent) => {
     e.preventDefault();
     setIsDraggedOver(false);
     onDrop(id);
@@ -113,6 +113,7 @@ function KanbanColumn({
                 bgColor={"transparent"}
                 size={"sm"}
                 onClick={() => setIsOpen(!isOpen)}
+                onTouchStart={() => setIsOpen(!isOpen)}
               >
                 <IoTrashBin />
               </Button>

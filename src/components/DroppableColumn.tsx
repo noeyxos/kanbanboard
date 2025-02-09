@@ -3,8 +3,8 @@ import { Box } from "@chakra-ui/react";
 
 interface DroppableColumnProps {
   id: number;
-  onDragOver: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent, columnId: number) => void;
+  onDragOver: (e: React.DragEvent | React.TouchEvent) => void;
+  onDrop: (e: React.DragEvent | React.TouchEvent, columnId: number) => void;
   children: React.ReactNode;
   isDraggedOver?: boolean;
 }
@@ -30,6 +30,8 @@ export function DroppableColumn({
       <Box
         onDragOver={(e) => onDragOver(e)}
         onDrop={(e) => onDrop(e, id)}
+        onTouchMove={(e) => onDragOver(e)}
+        onTouchEnd={(e) => onDrop(e, id)}
         minHeight="200px"
         p={2}
         bg={isDraggedOver ? "gray.100" : "gray.50"}

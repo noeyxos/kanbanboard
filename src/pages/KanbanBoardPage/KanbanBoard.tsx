@@ -41,7 +41,7 @@ function KanbanBoard() {
     setDraggedCardId(null);
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e: React.DragEvent | React.TouchEvent) => {
     e.preventDefault();
   };
 

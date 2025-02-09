@@ -4,7 +4,7 @@ import {
   Stack,
   CardBody,
   CardRoot,
-  Textarea,
+  Input,
   HStack,
 } from "@chakra-ui/react";
 
@@ -33,15 +33,15 @@ const EditCard = ({ card, onSave, onCancel }: EditCardProps) => {
       <CardBody>
         <form onSubmit={handleSubmit}>
           <Stack>
-            <Textarea
+            <Input
               placeholder="태그 입력"
               value={tag}
               onChange={(e) => setTag(e.target.value)}
               autoFocus
               size="sm"
             />
-            <Textarea
-              placeholder="Enter description"
+            <Input
+              placeholder="할일 입력"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               size="sm"
@@ -52,10 +52,16 @@ const EditCard = ({ card, onSave, onCancel }: EditCardProps) => {
                 bgColor="gray.100"
                 variant="ghost"
                 onClick={onCancel}
+                onTouchStart={onCancel}
               >
                 취소
               </Button>
-              <Button size="sm" bgColor="blue" type="submit">
+              <Button
+                size="sm"
+                bgColor="blue"
+                type="submit"
+                onTouchStart={handleSubmit}
+              >
                 저장
               </Button>
             </HStack>
