@@ -89,23 +89,23 @@ function KanbanColumn({
         <Box display={"flex"} pb={3}>
           <Heading
             size={"md"}
-            color={"black"}
+            color={"#515151"}
             fontWeight={"bold"}
             title={title}
           >
             {truncateTitle(title)}
           </Heading>
           {cards.length > 0 && (
-            <Text
-              bg={"gray.100"}
-              px={2}
-              borderRadius={"md"}
-              color={"black"}
-              fontWeight={"bold"}
-              ml={2}
-            >
-              {cards.length}
-            </Text>
+          <Text
+            bg={"gray.100"}
+            px={2}
+            borderRadius={"md"}
+            color={"black"}
+            fontWeight={"bold"}
+            ml={2}
+          >
+            {cards.length}
+          </Text>
           )}
         </Box>
         <Box display={"flex"} position={"relative"}>
@@ -132,16 +132,16 @@ function KanbanColumn({
             </Box>
           )}
           {cards.length > 0 && (
-            <Button
-              color={"black"}
-              bgColor={"#F1F1F1"}
-              borderRadius={20}
-              size={"sm"}
-              padding={0}
-              onClick={() => setIsAddingCard(true)}
-            >
-              <IoMdAdd />
-            </Button>
+          <Button
+            color={"black"}
+            bgColor={"#F1F1F1"}
+            borderRadius={20}
+            size={"sm"}
+            padding={0}
+            onClick={() => setIsAddingCard(true)}
+          >
+            <IoMdAdd />
+          </Button>
           )}
         </Box>
       </Box>
