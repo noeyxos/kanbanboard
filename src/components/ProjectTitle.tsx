@@ -2,8 +2,8 @@ import { Box, Flex, Heading, Input } from "@chakra-ui/react";
 import { MdOutlineEdit } from "react-icons/md";
 import { useProjectStore } from "../store/projectStore";
 import { useState } from "react";
-import { LuArrowDownToLine } from "react-icons/lu";
 import { AiOutlineClose } from "react-icons/ai";
+import { CiEdit } from "react-icons/ci";
 
 function ProjectTitle() {
   const { projectTitle, setProjectTitle } = useProjectStore();
@@ -48,7 +48,7 @@ function ProjectTitle() {
             color="black"
             placeholder="프로젝트 제목을 입력하세요"
           />
-          <LuArrowDownToLine
+          <CiEdit
             size={24}
             color="#3A3A3A"
             cursor="pointer"

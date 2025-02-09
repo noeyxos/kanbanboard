@@ -17,7 +17,7 @@ function Header() {
         </Box>
         <Box display="flex" flexDirection="row" gap={1}>
           <Image src={profile} alt="user" width="39px" height="39px" />
-          <Text pt={2} pl={2}>
+          <Text pt={2} pl={2} color={"black"}>
             정소연
           </Text>
           <Button bgColor="transparent" color="black" p={0}>

@@ -13,6 +13,7 @@ import { useState } from "react";
 import EditCard from "./EditCard";
 import { motion } from "framer-motion";
 import SpringModal from "./SpringModal";
+import { AiOutlineClose } from "react-icons/ai";
 
 interface Card {
   id: number;
@@ -151,15 +152,19 @@ const KanbanCard = ({
               onClick={() => setIsOpen(!isOpen)}
               onTouchStart={() => setIsOpen(!isOpen)}
             >
-              <CiMenuKebab />
+              {isOpen ? <AiOutlineClose /> : <CiMenuKebab />}
             </Button>
           </Box>
           <Box>
             <SpringModal p="" isOpen={isOpen} setIsOpen={setIsOpen}>
               <Box minW="100%" zIndex={3000} bg={"#FFFFFF"}>
-                <Heading>카드를 수정 또는 삭제하시겠습니까?</Heading>
+                <Heading size={"md"} pb={3}>
+                  원하는 작업을 선택하세요
+                </Heading>
                 <HStack>
                   <Button
+                    bgColor="gray.100"
+                    color={"black"}
                     value="edit"
                     onClick={handleEditClick}
                     onTouchStart={handleEditClick}
@@ -167,6 +172,7 @@ const KanbanCard = ({
                     수정
                   </Button>
                   <Button
+                    bgColor="gray.100"
                     value="delete"
                     color="fg.error"
                     _hover={{ bg: "bg.error", color: "fg.error" }}
