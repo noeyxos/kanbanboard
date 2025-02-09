@@ -22,6 +22,11 @@ interface KanbanColumnProps {
     columnId: number,
     cardData: { tag: string; description: string }
   ) => void;
+  onEditCard?: (
+    cardId: number,
+    cardData: { tag: string; description: string }
+  ) => void; // 추가
+  onDeleteCard?: (cardId: number) => void;
 }
 
 function KanbanColumn({
@@ -31,6 +36,8 @@ function KanbanColumn({
   cards = [],
   onDeleteColumn,
   onAddCard,
+  onEditCard,
+  onDeleteCard,
 }: KanbanColumnProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
@@ -112,6 +119,8 @@ function KanbanColumn({
         onAddCard={onAddCard}
         isAdding={isAddingCard}
         onCancelAdd={() => setIsAddingCard(false)}
+        onEditCard={onEditCard}
+        onDeleteCard={onDeleteCard}
       />
     </Box>
   );
